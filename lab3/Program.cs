@@ -5,12 +5,12 @@ namespace lab3
     class Program
     {
         //Метод для перенемення елементів з однієї області в іншу для int
-        static void replaseElements(int[,] arr) 
+        static void ReplaseElements(int[,] arr, int n, int m) 
         {
             Console.WriteLine("\nПереписання елементів з однієї області в іншу");
-            for (int i = 0; i < arr.GetLength(0); i++)
+            for (int i = 0; i < n; i++)
             {
-                for (int j = i + 1; j < arr.GetLength(1); j++)
+                for (int j = i + 1; j < m; j++)
                 {
                     int temp = arr[i, j];
                     arr[i, j] = arr[j, i];
@@ -19,12 +19,12 @@ namespace lab3
             }
         }
         //Метод для перенемення елементів з однієї області в іншу для char
-        static void replaseElements(char[,] arr)
+        static void ReplaseElements(char[,] arr,int n, int m)
         {
             Console.WriteLine("\nПереписання елементів з однієї області в іншу");
-            for (int i = 0; i < arr.GetLength(0); i++)
+            for (int i = 0; i < n; i++)
             {
-                for (int j = i + 1; j < arr.GetLength(1); j++)
+                for (int j = i + 1; j < m; j++)
                 {
                     char temp = arr[i, j];
                     arr[i, j] = arr[j, i];
@@ -33,14 +33,14 @@ namespace lab3
             }
         }
         //Метод для пошуку символів в масиві
-        static bool searchChar(char[,] arr)
+        static bool SearchChar(char[,] arr,int n,int m)
         {
             Console.WriteLine("Введіть символ який потрібно знайти");
             char c = Convert.ToChar(Console.ReadLine());
-            for (int i = 0; i < arr.GetLength(0); i++)
+            for (int i = 0; i < n; i++)
             {
 
-                for (int j = 0; j < arr.GetLength(1); j++)
+                for (int j = 0; j < m; j++)
                 {
                     if (c == arr[i, j])
                     {
@@ -51,14 +51,14 @@ namespace lab3
             return false;
         }
         // метод для пошуку максимального та максимального значення
-        static void searchMinMax(int[,] arr)
+        static void SearchMinMax(int[,] arr,int n, int m)
         {
             int min = arr[0, 0];
             int max = arr[0, 0];
-            for (int i = 0; i < arr.GetLength(0); i++)
+            for (int i = 0; i < n; i++)
             {
 
-                for (int j = 0; j < arr.GetLength(1); j++)
+                for (int j = 0; j < m; j++)
                 {
                     if (arr[i, j] < min && arr[i, j] > 0)
                     {
@@ -74,11 +74,11 @@ namespace lab3
             Console.WriteLine($"min = {min}, max = {max}");
         }
         // метод для виводу масиву типу int 
-        static void printArr(int[,] arr)
+        static void PrintArr(int[,] arr, int n, int m)
         {
-            for (int i = 0; i < arr.GetLength(0); i++)
+            for (int i = 0; i < n; i++)
             {
-                for (int j = 0; j < arr.GetLength(1); j++)
+                for (int j = 0; j < m; j++)
                 {
                     Console.Write(arr[i, j] + " ");
                 }
@@ -86,11 +86,11 @@ namespace lab3
             }
         }
         // масив для виводу масиву типу char
-        static void printArr(char[,] arr)
+        static void PrintArr(char[,] arr,int n, int m)
         {
-            for (int i = 0; i < arr.GetLength(0); i++)
+            for (int i = 0; i < n; i++)
             {
-                for (int j = 0; j < arr.GetLength(1); j++)
+                for (int j = 0; j < m; j++)
                 {
                     Console.Write(arr[i, j] + " ");
                 }
@@ -98,28 +98,54 @@ namespace lab3
             }
         }
         //Метод для пошуку парного числа
-        static int getOddNumber(Random random)
+        static int GetOddNumber(Random random)
         {
 
 
-            int n = random.Next(1, 9);
-            while (n % 2 == 0)
+            int number = random.Next(1, 9);
+            while (number % 2 == 0)
             {
-                n = random.Next(1, 9);
+                number = random.Next(1, 9);
             }
 
-            return n;
+            return number;
         }
         // метод для пошуку непарного числа
-        static int getEvenТumber(Random random)
+        static int GetEvenNumber(Random random)
         {
-            int n = random.Next(1, 9);
-            while (n % 2 != 0)
+            int number = random.Next(1, 9);
+            while (number % 2 != 0)
             {
-                n = random.Next(1, 9);
+                number = random.Next(1,9);
             }
-            return n;
+            return number;
         }
+
+        static void Transpon(int[,] arr, int n, int m)                   //Транспоновка матрицы интового типа данных
+        {
+            for (int i = 0; i < n; i++)
+            {
+                for (int j = 0; j < i; j++)
+                {
+                    int temp = arr[i, j];
+                    arr[i, j] = arr[j, i];
+                    arr[j, i] = temp;
+                }
+            }
+        }
+        static void Transpon(char[,] arr, int n, int m)
+        {
+            for (int i = 0; i < n; i++)
+            {
+                for (int j = 0; j < i; j++)
+                {
+                    char temp = arr[i, j];
+                    arr[i, j] = arr[j, i];
+                    arr[j, i] = temp;
+                }
+            }
+        }
+
         // Метод в який виноситься switch який багато раз використовується для того щоб не дублювати код
         static void switchFun(int v, int[,] arr, char[,] charArr, int i, int j)
 
@@ -132,10 +158,10 @@ namespace lab3
                     arr[i, j] = random.Next(1, 9);
                     break;
                 case 2:
-                    arr[i, j] = getOddNumber(random);
+                    arr[i, j] = GetEvenNumber(random);
                     break;
                 case 3:
-                    arr[i, j] = getEvenТumber(random);
+                    arr[i, j] = GetOddNumber(random);
                     break;
                 case 4:
                     charArr[i, j] = (char)random.Next(0x0410, 0x44F);
@@ -147,64 +173,69 @@ namespace lab3
             }
         }
 
-        //Метод для винесення switch який багато раз використовується
-        static void lab3_2(int v, int[,] arr, char[,] charArr)
+        static void WorckWithArr(int choice,int [,] arr,int n,int m)
         {
-            switch (v)
+            switch (choice)
             {
                 case 1:
-                    Console.WriteLine("Початвовий масив");
-                    printArr(arr);
-                    searchMinMax(arr);
-                    Console.WriteLine();
-                    replaseElements(arr);
-                    printArr(arr);
+                    SearchMinMax(arr, n, m);
+                    PrintArr(arr, n, m);
                     break;
                 case 2:
-                    Console.WriteLine("Початвовий масив");
-                    printArr(arr);
-                    searchMinMax(arr);
-                    replaseElements(arr);
+                    Console.WriteLine("Для цього масиво неможливо виконати пошук символу");
                     break;
                 case 3:
-                    Console.WriteLine("Початвовий масив");
-                    printArr(arr);
-                    searchMinMax(arr);
-                    replaseElements(arr);
+                    Transpon(arr, n, m);
+                    PrintArr(arr, n, m);
                     break;
                 case 4:
-                    Console.WriteLine("Початвовий масив");
-                    printArr(charArr);
-                    if (searchChar(charArr))
-                        Console.WriteLine("Цей символ знаходиться в масиві");
-                    else
-                        Console.WriteLine("Такого символу немає в масиві");
-                    replaseElements(charArr);
-                    printArr(charArr);
+                    ReplaseElements(arr, n, m);
+                    PrintArr(arr, n, m);
                     break;
-                case 5:
-                    Console.WriteLine("Початвовий масив");
-                    printArr(charArr);
-                    if (searchChar(charArr))
-                        Console.WriteLine("Цей символ знаходиться в масиві");
-                    else
-                        Console.WriteLine("Такого символу немає в масиві");
-
-                    replaseElements(charArr);
-                    printArr(charArr);
+                default:
                     break;
             }
         }
+        static void WorckWithArr(int choice, char[,] arr, int n, int m)
+        {
+            switch (choice)
+            {
+                case 1:
+                    Console.WriteLine("Для цього масиву неможливо виконати пошук min/max");
+                    break;
+                case 2:
+                    SearchChar(arr, n, m);
+                    PrintArr(arr, n, m);
+                    break;
+                case 3:
+                    Transpon(arr, n, m);
+                    PrintArr(arr, n, m);
+                    break;
+                case 4:
+                    ReplaseElements(arr, n, m);
+                    break;
+                default:
+                    break;
+            }
+        }
+        static void PrintMenu()
+        {
+            Console.WriteLine("Що потрібно виконати?");
+            Console.WriteLine("1. Знайти max / min.");
+            Console.WriteLine("2. Пошук символу");
+            Console.WriteLine("3. Транспонувати масив");
+            Console.WriteLine("4. Переписати елементи з однiєї областi в iншу");
+        }
 
-
-        #region filling arrays Регіон в якому всі методи заповнюють різні області масивів
-        static void lab3_1_1(int v, int n, int m)
+        //Регіон в якому всі методи заповнюють різні області масивів
+        #region filling arrays         
+        static void Arr1(int v, int n, int m)
         {
             int[,] arr = new int[n, m];
             char[,] charArr = new char[n, m];
-            for (int i = 0; i < arr.GetLength(0); i++)
+            for (int i = 0; i < n; i++)
             {
-                for (int j = 0; j < arr.GetLength(1); j++)
+                for (int j = 0; j < m; j++)
                 {
                     if (i == j || i > j)
                     {
@@ -216,38 +247,29 @@ namespace lab3
             }
             if (v == 1 || v == 2 || v == 3)
             {
-                printArr(arr);
+                PrintArr(arr, n, m);
             }
             else
-                printArr(charArr);
-        }
-
-        static void lab3_2_1(int v, int n, int m)
-        {
-            int[,] arr = new int[n, m];
-            char[,] charArr = new char[n, m];
-            for (int i = 0; i < arr.GetLength(0); i++)
             {
-                for (int j = 0; j < arr.GetLength(1); j++)
-                {
-                    if (i == j || i > j)
-                    {
-                        switchFun(v, arr, charArr, i, j);
-                    }
-                    else
-                        charArr[i, j] = '0';
-                }
+                PrintArr(charArr, n, m);
             }
-            lab3_2(v, arr, charArr);
+            PrintMenu();
+            int choice= Convert.ToInt32(Console.ReadLine());
+            if (v == 1 || v == 2 || v == 3)
+            {
+                WorckWithArr(choice, arr, n, m);
+            }
+            else
+                WorckWithArr(choice, charArr, n, m);
         }
 
-        static void lab3_1_2(int v, int n, int m)
+        static void Arr2(int v, int n, int m)
         {
             int[,] arr = new int[n, m];
             char[,] charArr = new char[n, m];
-            for (int i = 0; i < arr.GetLength(0); i++)
+            for (int i = 0; i < n; i++)
             {
-                for (int j = 0; j < arr.GetLength(1); j++)
+                for (int j = 0; j < m; j++)
                 {
                     if (i == j || i < j)
                     {
@@ -256,23 +278,34 @@ namespace lab3
                     else charArr[i, j] = '0';
                 }
             }
-            if (v == 1 || v == 2|| v==3)
+            if (v == 1 || v == 2 || v == 3)
             {
-                printArr(arr);
+                PrintArr(arr, n, m);
             }
             else
-                printArr(charArr);
+            {
+                PrintArr(charArr, n, m);
+            }
+            PrintMenu();
+
+            int choice = Convert.ToInt32(Console.ReadLine());
+            if (v == 1 || v == 2 || v == 3)
+            {
+                WorckWithArr(choice, arr, n, m);
+            }
+            else
+                WorckWithArr(choice, charArr, n, m);
         }
 
-        static void lab3_1_3(int v, int n, int m)
+        static void Arr3(int v, int n, int m)
         {
             int[,] arr = new int[n, m];
             char[,] charArr = new char[n, m];
             Random random = new();
 
-            for (int i = 0; i < arr.GetLength(0); i++)
+            for (int i = 0; i < n; i++)
             {
-                for (int j = 0; j < arr.GetLength(1); j++)
+                for (int j = 0; j < m; j++)
                 {
                     if (i + j == n - 1 || i + j <= n - 1)
                     {
@@ -281,23 +314,34 @@ namespace lab3
                     else charArr[i, j] = '0';
                 }
             }
-            if (v == 1 || v == 2|| v==3)
+            if (v == 1 || v == 2 || v == 3)
             {
-                printArr(arr);
+                PrintArr(arr, n, m);
             }
             else
-                printArr(charArr);
+            {
+                PrintArr(charArr, n, m);
+            }
+            PrintMenu();
+
+            int choice = Convert.ToInt32(Console.ReadLine());
+            if (v == 1 || v == 2 || v == 3)
+            {
+                WorckWithArr(choice, arr, n, m);
+            }
+            else
+                WorckWithArr(choice, charArr, n, m);
         }
 
-        static void lab3_1_4(int v, int n, int m)
+        static void Arr4(int v, int n, int m)
         {
             int[,] arr = new int[n, m];
             char[,] charArr = new char[n, m];
             Random random = new();
 
-            for (int i = 0; i < arr.GetLength(0); i++)
+            for (int i = 0; i < n; i++)
             {
-                for (int j = 0; j < arr.GetLength(1); j++)
+                for (int j = 0; j < m; j++)
                 {
                     if (i + j == n - 1 || i + j >= n - 1)
                     {
@@ -308,21 +352,31 @@ namespace lab3
             }
             if (v == 1 || v == 2 || v == 3)
             {
-                printArr(arr);
+                PrintArr(arr, n, m);
             }
             else
-                printArr(charArr);
+            {
+                PrintArr(charArr, n, m);
+            }
+            PrintMenu();
+            int choice = Convert.ToInt32(Console.ReadLine());
+            if (v == 1 || v == 2 || v == 3)
+            {
+                WorckWithArr(choice, arr, n, m);
+            }
+            else
+                WorckWithArr(choice, charArr, n, m);
         }
 
-        static void lab3_1_5(int v, int n, int m)
+        static void Arr5(int v, int n, int m)
         {
             int[,] arr = new int[n, m];
             char[,] charArr = new char[n, m];
             Random random = new();
 
-            for (int i = 0; i < arr.GetLength(0); i++)
+            for (int i = 0; i < n; i++)
             {
-                for (int j = 0; j < arr.GetLength(1); j++)
+                for (int j = 0; j < m; j++)
                 {
                     if ((i + j == n - 1 || i + j <= n - 1) && (i == j || i < j) || (i == j || i > j) && (i + j == n - 1 || i + j >= n - 1))
                     {
@@ -336,21 +390,31 @@ namespace lab3
             }
             if (v == 1 || v == 2 || v == 3)
             {
-                printArr(arr);
+                PrintArr(arr, n, m);
             }
             else
-                printArr(charArr);
+            {
+                PrintArr(charArr, n, m);
+            }
+            PrintMenu();
+            int choice = Convert.ToInt32(Console.ReadLine());
+            if (v == 1 || v == 2 || v == 3)
+            {
+                WorckWithArr(choice, arr, n, m);
+            }
+            else
+                WorckWithArr(choice, charArr, n, m);
         }
 
-        static void lab3_1_6(int v, int n, int m)
+        static void Arr6(int v, int n, int m)
         {
             int[,] arr = new int[n, m];
             char[,] charArr = new char[n, m];
             Random random = new();
 
-            for (int i = 0; i < arr.GetLength(0); i++)
+            for (int i = 0; i < n; i++)
             {
-                for (int j = 0; j < arr.GetLength(1); j++)
+                for (int j = 0; j < m; j++)
                 {
                     if ((i == j || i > j) && (i + j == n - 1 || i + j <= n - 1) || (i == j || i < j) && (i + j == n - 1 || i + j >= n - 1))
                     {
@@ -364,22 +428,32 @@ namespace lab3
             }
             if (v == 1 || v == 2 || v == 3)
             {
-                printArr(arr);
+                PrintArr(arr, n, m);
             }
             else
-                printArr(charArr);
+            {
+                PrintArr(charArr, n, m);
+            }
+            PrintMenu();
+            int choice = Convert.ToInt32(Console.ReadLine());
+            if (v == 1 || v == 2 || v == 3)
+            {
+                WorckWithArr(choice, arr, n, m);
+            }
+            else
+                WorckWithArr(choice, charArr, n, m);
 
         }
 
-        static void lab3_1_7(int v, int n, int m)
+        static void Arr7(int v, int n, int m)
         {
             int[,] arr = new int[n, m];
             char[,] charArr = new char[n, m];
             Random random = new();
 
-            for (int i = 0; i < arr.GetLength(0); i++)
+            for (int i = 0; i < n; i++)
             {
-                for (int j = 0; j < arr.GetLength(1); j++)
+                for (int j = 0; j < m; j++)
                 {
                     if ((i + j == n - 1 || i + j <= n - 1) && (i == j || i > j))
                     {
@@ -393,21 +467,31 @@ namespace lab3
             }
             if (v == 1 || v == 2 || v == 3)
             {
-                printArr(arr);
+                PrintArr(arr, n, m);
             }
             else
-                printArr(charArr);
+            {
+                PrintArr(charArr, n, m);
+            }
+            PrintMenu();
+            int choice = Convert.ToInt32(Console.ReadLine());
+            if (v == 1 || v == 2 || v == 3)
+            {
+                WorckWithArr(choice, arr, n, m);
+            }
+            else
+                WorckWithArr(choice, charArr, n, m);
         }
 
-        static void lab3_1_8(int v, int n, int m)
+        static void Arr8(int v, int n, int m)
         {
             int[,] arr = new int[n, m];
             char[,] charArr = new char[n, m];
             Random random = new();
 
-            for (int i = 0; i < arr.GetLength(0); i++)
+            for (int i = 0; i < n; i++)
             {
-                for (int j = 0; j < arr.GetLength(1); j++)
+                for (int j = 0; j < m; j++)
                 {
                     if ((i == j || i < j) && (i + j == n - 1 || i + j >= n - 1))
                     {
@@ -421,21 +505,31 @@ namespace lab3
             }
             if (v == 1 || v == 2 || v == 3)
             {
-                printArr(arr);
+                PrintArr(arr, n, m);
             }
             else
-                printArr(charArr);
+            {
+                PrintArr(charArr, n, m);
+            }
+            PrintMenu();
+            int choice = Convert.ToInt32(Console.ReadLine());
+            if (v == 1 || v == 2 || v == 3)
+            {
+                WorckWithArr(choice, arr, n, m);
+            }
+            else
+                WorckWithArr(choice, charArr, n, m);
         }
 
-        static void lab3_1_9(int v, int n, int m)
+        static void Arr9(int v, int n, int m)
         {
             int[,] arr = new int[n, m];
             char[,] charArr = new char[n, m];
             Random random = new();
 
-            for (int i = 0; i < arr.GetLength(0); i++)
+            for (int i = 0; i < n; i++)
             {
-                for (int j = 0; j < arr.GetLength(1); j++)
+                for (int j = 0; j < m; j++)
                 {
                     if (i + j >= n - 1 && i + j >= n - 1 && i >= j && i >= j)
                     {
@@ -449,21 +543,31 @@ namespace lab3
             }
             if (v == 1 || v == 2 || v == 3)
             {
-                printArr(arr);
+                PrintArr(arr, n, m);
             }
             else
-                printArr(charArr);
+            {
+                PrintArr(charArr, n, m);
+            }
+            PrintMenu();
+            int choice = Convert.ToInt32(Console.ReadLine());
+            if (v == 1 || v == 2 || v == 3)
+            {
+                WorckWithArr(choice, arr, n, m);
+            }
+            else
+                WorckWithArr(choice, charArr, n, m);
         }
 
-        static void lab3_1_10(int v, int n, int m)
+        static void Arr10(int v, int n, int m)
         {
             int[,] arr = new int[n, m];
             char[,] charArr = new char[n, m];
             Random random = new();
 
-            for (int i = 0; i < arr.GetLength(0); i++)
+            for (int i = 0; i < n; i++)
             {
-                for (int j = 0; j < arr.GetLength(1); j++)
+                for (int j = 0; j < m; j++)
                 {
                     if (i + j <= n - 1 && i + j <= n - 1 && i <= j && i <= j)
                     {
@@ -477,21 +581,31 @@ namespace lab3
             }
             if (v == 1 || v == 2 || v == 3)
             {
-                printArr(arr);
+                PrintArr(arr, n, m);
             }
             else
-                printArr(charArr);
+            {
+                PrintArr(charArr, n, m);
+            }
+            PrintMenu();
+            int choice = Convert.ToInt32(Console.ReadLine());
+            if (v == 1 || v == 2 || v == 3)
+            {
+                WorckWithArr(choice, arr, n, m);
+            }
+            else
+                WorckWithArr(choice, charArr, n, m);
         }
 
-        static void lab3_1_11(int v, int n, int m)
+        static void Arr11(int v, int n, int m)
         {
             int[,] arr = new int[n, m];
             char[,] charArr = new char[n, m];
             Random random = new();
 
-            for (int i = 0; i < arr.GetLength(0); i++)
+            for (int i = 0; i < n; i++)
             {
-                for (int j = 0; j < arr.GetLength(1); j++)
+                for (int j = 0; j < m; j++)
                 {
                     if (i + j == n - 1 || i + j <= n - 1 || i == j || i > j)
                     {
@@ -505,21 +619,31 @@ namespace lab3
             }
             if (v == 1 || v == 2 || v == 3)
             {
-                printArr(arr);
+                PrintArr(arr, n, m);
             }
             else
-                printArr(charArr);
+            {
+                PrintArr(charArr, n, m);
+            }
+            PrintMenu();
+            int choice = Convert.ToInt32(Console.ReadLine());
+            if (v == 1 || v == 2 || v == 3)
+            {
+                WorckWithArr(choice, arr, n, m);
+            }
+            else
+                WorckWithArr(choice, charArr, n, m);
         }
 
-        static void lab3_1_12(int v, int n, int m)
+        static void Arr12(int v, int n, int m)
         {
             int[,] arr = new int[n, m];
             char[,] charArr = new char[n, m];
             Random random = new();
 
-            for (int i = 0; i < arr.GetLength(0); i++)
+            for (int i = 0; i < n; i++)
             {
-                for (int j = 0; j < arr.GetLength(1); j++)
+                for (int j = 0; j < m; j++)
                 {
                     if (i + j == n - 1 || i + j >= n - 1 || i == j || i < j)
                     {
@@ -530,21 +654,31 @@ namespace lab3
             }
             if (v == 1 || v == 2 || v == 3)
             {
-                printArr(arr);
+                PrintArr(arr, n, m);
             }
             else
-                printArr(charArr);
+            {
+                PrintArr(charArr, n, m);
+            }
+            PrintMenu();
+            int choice = Convert.ToInt32(Console.ReadLine());
+            if (v == 1 || v == 2 || v == 3)
+            {
+                WorckWithArr(choice, arr, n, m);
+            }
+            else
+                WorckWithArr(choice, charArr, n, m);
         }
 
-        static void lab3_1_13(int v, int n, int m)
+        static void Arr13(int v, int n, int m)
         {
             int[,] arr = new int[n, m];
             char[,] charArr = new char[n, m];
             Random random = new();
 
-            for (int i = 0; i < arr.GetLength(0); i++)
+            for (int i = 0; i < n; i++)
             {
-                for (int j = 0; j < arr.GetLength(1); j++)
+                for (int j = 0; j < m; j++)
                 {
                     if (i + j == n - 1 || i + j <= n - 1 || i == j || i < j)
                     {
@@ -555,21 +689,31 @@ namespace lab3
             }
             if (v == 1 || v == 2 || v == 3)
             {
-                printArr(arr);
+                PrintArr(arr, n, m);
             }
             else
-                printArr(charArr);
+            {
+                PrintArr(charArr, n, m);
+            }
+            PrintMenu();
+            int choice = Convert.ToInt32(Console.ReadLine());
+            if (v == 1 || v == 2 || v == 3)
+            {
+                WorckWithArr(choice, arr, n, m);
+            }
+            else
+                WorckWithArr(choice, charArr, n, m);
         }
 
-        static void lab3_1_14(int v, int n, int m)
+        static void Arr14(int v, int n, int m)
         {
             int[,] arr = new int[n, m];
             char[,] charArr = new char[n, m];
             Random random = new();
 
-            for (int i = 0; i < arr.GetLength(0); i++)
+            for (int i = 0; i < n; i++)
             {
-                for (int j = 0; j < arr.GetLength(1); j++)
+                for (int j = 0; j < m; j++)
                 {
                     if (i + j == n - 1 || i + j >= n - 1 || i == j || i > j)
                     {
@@ -580,193 +724,100 @@ namespace lab3
             }
             if (v == 1 || v == 2 || v == 3)
             {
-                printArr(arr);
+                PrintArr(arr, n, m);
             }
             else
-                printArr(charArr);
+            {
+                PrintArr(charArr, n, m);
+            }
+            PrintMenu();
+            int choice = Convert.ToInt32(Console.ReadLine());
+            if (v == 1 || v == 2 || v == 3)
+            {
+                WorckWithArr(choice, arr, n, m);
+            }
+            else
+                WorckWithArr(choice, charArr, n, m);
+        }
 
-
+        static int ChoiceFiil()
+        {
+            Console.WriteLine("Введiть вид заповнення матриці");
+            Console.WriteLine("1.Псевдовипадковими числами");
+            Console.WriteLine("2.Парними числами в дiапазонi вiд n до m");
+            Console.WriteLine("3.Непарними числами в дiапазонi вiд n до m");
+            Console.WriteLine("4.Будь-якими символами");
+            Console.WriteLine("5.Будь-якими буквами англ. алфавiту");
+            int fillArr = Convert.ToInt32(Console.ReadLine());
+            return fillArr;
         }
 
         #endregion
         static void Main(string[] args)
         {
-            int n, m;
-            Console.Write("Введіть розмірність матриці n = ");
+            int n, m, zavd;
+            bool loop = true;
+            Console.Write("Введіть розміри матриці: n=");
             n = Convert.ToInt32(Console.ReadLine());
-            Console.Write("m = ");
+            Console.Write("m=");
             m = Convert.ToInt32(Console.ReadLine());
-            //1 масив
-            Console.WriteLine("\t1 масив");
-            Console.WriteLine("Заповнення області масиву псевдовипадковими числами");
-            lab3_1_1(1, n, m);
-            Console.WriteLine("\nЗаповнення області масиву непарними числами");
-            lab3_1_1(2, n, m);
-            Console.WriteLine("\nЗаповнення області масиву парними числами");
-            lab3_1_1(3, n, m);
-            Console.WriteLine("\nЗаповнення будь яким символом");
-            lab3_1_1(4, n, m);
-            Console.WriteLine("\nЗаповнення буквами англійського алфавіту");
-            lab3_1_1(5, n, m);
-            //2 масив
-            Console.WriteLine("\n\t2 масив");
-            Console.WriteLine("Заповнення області масиву псевдовипадковими числами");
-            lab3_1_2(1, n, m);
-            Console.WriteLine("\nЗаповнення області масиву непарними числами");
-            lab3_1_2(2, n, m);
-            Console.WriteLine("\nЗаповнення області масиву парними числами");
-            lab3_1_2(3, n, m);
-            Console.WriteLine("\nЗаповнення будь яким символом");
-            lab3_1_2(4, n, m);
-            Console.WriteLine("\nЗаповнення буквами англійського алфавіту");
-            lab3_1_2(5, n, m);
-            //3 масив
-            Console.WriteLine("\n\n\t3 масив");
-            Console.WriteLine("Заповнення області масиву псевдовипадковими числами");
-            lab3_1_3(1, n, m);
-            Console.WriteLine("\nЗаповнення області масиву непарними числами");
-            lab3_1_3(2, n, m);
-            Console.WriteLine("\nЗаповнення області масиву парними числами");
-            lab3_1_3(3, n, m);
-            Console.WriteLine("\nЗаповнення будь яким символом");
-            lab3_1_3(4, n, m);
-            Console.WriteLine("\nЗаповнення буквами англійського алфавіту");
-            lab3_1_3(5, n, m);
-            //4 масив
-            Console.WriteLine("\n\t4 масив");
-            Console.WriteLine("Заповнення області масиву псевдовипадковими числами");
-            lab3_1_4(1, n, m);
-            Console.WriteLine("\nЗаповнення області масиву непарними числами");
-            lab3_1_4(2, n, m);
-            Console.WriteLine("\nЗаповнення області масиву парними числами");
-            lab3_1_4(3, n, m);
-            Console.WriteLine("\nЗаповнення будь яким символом");
-            lab3_1_4(4, n, m);
-            Console.WriteLine("\nЗаповнення буквами англійського алфавіту");
-            lab3_1_4(5, n, m);
-            //5 масив
-            Console.WriteLine("\n\t5 масив\n");
-            Console.WriteLine("Заповнення області масиву псевдовипадковими числами");
-            lab3_1_5(1, n, m);
-            Console.WriteLine("\nЗаповнення області масиву непарними числами");
-            lab3_1_5(2, n, m);
-            Console.WriteLine("\nЗаповнення області масиву парними числами");
-            lab3_1_5(3, n, m);
-            Console.WriteLine("\nЗаповнення будь яким символом");
-            lab3_1_5(4, n, m);
-            Console.WriteLine("\nЗаповнення буквами англійського алфавіту");
-            lab3_1_5(5, n, m);
-            //6 масив
-            Console.WriteLine("\n\t6 масив\n");
-            Console.WriteLine("Заповнення області масиву псевдовипадковими числами");
-            lab3_1_6(1, n, m);
-            Console.WriteLine("\nЗаповнення області масиву непарними числами");
-            lab3_1_6(2, n, m);
-            Console.WriteLine("\nЗаповнення області масиву парними числами");
-            lab3_1_6(3, n, m);
-            Console.WriteLine("\nЗаповнення будь яким символом");
-            lab3_1_6(4, n, m);
-            Console.WriteLine("\nЗаповнення буквами англійського алфавіту");
-            lab3_1_6(5, n, m);
-            //7 масив
-            Console.WriteLine("\n\t7 масив\n");
-            Console.WriteLine("Заповнення області масиву псевдовипадковими числами");
-            lab3_1_7(1, n, m);
-            Console.WriteLine("\nЗаповнення області масиву непарними числами");
-            lab3_1_7(2, n, m);
-            Console.WriteLine("\nЗаповнення області масиву парними числами");
-            lab3_1_7(3, n, m);
-            Console.WriteLine("\nЗаповнення будь яким символом");
-            lab3_1_7(4, n, m);
-            Console.WriteLine("\nЗаповнення буквами англійського алфавіту");
-            lab3_1_7(5, n, m);
-            //8 масив
-            Console.WriteLine("\n\t8 масив\n");
-            Console.WriteLine("Заповнення області масиву псевдовипадковими числами");
-            lab3_1_8(1, n, m);
-            Console.WriteLine("\nЗаповнення області масиву непарними числами");
-            lab3_1_8(2, n, m);
-            Console.WriteLine("\nЗаповнення області масиву парними числами");
-            lab3_1_8(3, n, m);
-            Console.WriteLine("\nЗаповнення будь яким символом");
-            lab3_1_8(4, n, m);
-            Console.WriteLine("\nЗаповнення буквами англійського алфавіту");
-            lab3_1_8(5, n, m);
-            //9 масив
-            Console.WriteLine("\n\t9 масив\n");
-            Console.WriteLine("Заповнення області масиву псевдовипадковими числами");
-            lab3_1_9(1, n, m);
-            Console.WriteLine("\nЗаповнення області масиву непарними числами");
-            lab3_1_9(2, n, m);
-            Console.WriteLine("\nЗаповнення області масиву парними числами");
-            lab3_1_9(3, n, m);
-            Console.WriteLine("\nЗаповнення будь яким символом");
-            lab3_1_9(4, n, m);
-            Console.WriteLine("\nЗаповнення буквами англійського алфавіту");
-            lab3_1_9(5, n, m);
-            //10 масив
-            Console.WriteLine("\n\t10 масив\n");
-            Console.WriteLine("Заповнення області масиву псевдовипадковими числами");
-            lab3_1_10(1, n, m);
-            Console.WriteLine("\nЗаповнення області масиву непарними числами");
-            lab3_1_10(2, n, m);
-            Console.WriteLine("\nЗаповнення області масиву парними числами");
-            lab3_1_10(3, n, m);
-            Console.WriteLine("\nЗаповнення будь яким символом");
-            lab3_1_10(4, n, m);
-            Console.WriteLine("\nЗаповнення буквами англійського алфавіту");
-            lab3_1_10(5, n, m);
-            //11 масив
-            Console.WriteLine("\n\t11 масив\n");
-            Console.WriteLine("Заповнення області масиву псевдовипадковими числами");
-            lab3_1_11(1, n, m);
-            Console.WriteLine("\nЗаповнення області масиву непарними числами");
-            lab3_1_11(2, n, m);
-            Console.WriteLine("\nЗаповнення області масиву парними числами");
-            lab3_1_11(3, n, m);
-            Console.WriteLine("\nЗаповнення будь яким символом");
-            lab3_1_11(4, n, m);
-            Console.WriteLine("\nЗаповнення буквами англійського алфавіту");
-            lab3_1_11(5, n, m);
-            //12 масив
-            Console.WriteLine("\n\t12 масив\n");
-            Console.WriteLine("Заповнення області масиву псевдовипадковими числами");
-            lab3_1_12(1, n, m);
-            Console.WriteLine("\nЗаповнення області масиву непарними числами");
-            lab3_1_12(2, n, m);
-            Console.WriteLine("\nЗаповнення області масиву парними числами");
-            lab3_1_12(3, n, m);
-            Console.WriteLine("\nЗаповнення будь яким символом");
-            lab3_1_12(4, n, m);
-            Console.WriteLine("\nЗаповнення буквами англійського алфавіту");
-            lab3_1_12(5, n, m);
-            //13 масив
-            Console.WriteLine("\n\t13 масив\n");
-            Console.WriteLine("Заповнення області масиву псевдовипадковими числами");
-            lab3_1_13(1, n, m);
-            Console.WriteLine("\nЗаповнення області масиву непарними числами");
-            lab3_1_13(2, n, m);
-            Console.WriteLine("\nЗаповнення області масиву парними числами");
-            lab3_1_13(3, n, m);
-            Console.WriteLine("\nЗаповнення будь яким символом");
-            lab3_1_13(4, n, m);
-            Console.WriteLine("\nЗаповнення буквами англійського алфавіту");
-            lab3_1_13(5, n, m);
-            //14 масив
-            Console.WriteLine("\n\t14 масив\n");
-            Console.WriteLine("Заповнення області масиву псевдовипадковими числами");
-            lab3_1_14(1, n, m);
-            Console.WriteLine("\nЗаповнення області масиву непарними числами");
-            lab3_1_14(2, n, m);
-            Console.WriteLine("\nЗаповнення області масиву парними числами");
-            lab3_1_14(3, n, m);
-            Console.WriteLine("\nЗаповнення будь яким символом");
-            lab3_1_14(4, n, m);
-            Console.WriteLine("\nЗаповнення буквами англійського алфавіту");
-            lab3_1_14(5, n, m);
-            Console.WriteLine("\n\tЗавдання 2 для 1 масиву\n");
-            lab3_2_1(1, n, m);
-            lab3_2_1(4, n, m);
+            while(loop)
+            {
+                Console.WriteLine("Введiть номер завдання(1-14) або 0 для виходу");
+                zavd = Convert.ToInt32(Console.ReadLine());
+
+                switch (zavd)
+                {
+                    case 0:
+                        loop = false;
+                        break;
+                    case 1:
+                        Arr1(ChoiceFiil(), n, m);
+                        break;
+                    case 2:
+                        Arr2(ChoiceFiil(), n, m);
+                        break;
+                    case 3:
+                        Arr3(ChoiceFiil(), n, m);
+                        break;
+                    case 4:
+                        Arr4(ChoiceFiil(), n, m);
+                        break;
+                    case 5:
+                        Arr5(ChoiceFiil(), n, m);
+                        break;
+                    case 6:
+                        Arr6(ChoiceFiil(), n, m);
+                        break;
+                    case 7:
+                        Arr7(ChoiceFiil(), n, m);
+                        break;
+                    case 8:
+                        Arr8(ChoiceFiil(), n, m);
+                        break;
+                    case 9:
+                        Arr9(ChoiceFiil(), n, m);
+                        break;
+                    case 10:
+                        Arr10(ChoiceFiil(), n, m);
+                        break;
+                    case 11:
+                        Arr11(ChoiceFiil(), n, m);
+                        break;
+                    case 12:
+                        Arr12(ChoiceFiil(), n, m);
+                        break;
+                    case 13:
+                        Arr13(ChoiceFiil(), n, m);
+                        break;
+                    case 14:
+                        Arr14(ChoiceFiil(), n, m);
+                        break;
+                    default:
+                        break;
+                }
+            }
+            
         }
     }
 }
